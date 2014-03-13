@@ -25,3 +25,5 @@ The web application was written using ASP.NET MVC4 and C#.
 
 Try AGOLCat:
 http://bosdemo2.esri.com/apps/agolcat
+
+Note: Included here are the significant files to insert and configure into a Visual Studio MVC 4 Web Application (Razor syntax).  I did not want to include the core application files.  Please configure these into a standard application template.
