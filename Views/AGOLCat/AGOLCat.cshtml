@@ -1,0 +1,84 @@
+﻿@model AGOLCat.Models.AGOLCatalogModel
+@{
+    ViewBag.Title = "AGOL Catalog";
+}
+
+<h2>AGOL Catalog</h2>
+
+      <section class="content-wrapper main-content clear-fix">
+
+@if(!IsPost )
+{
+  
+  
+  
+  
+    <form action="~/AGOLCat/Refresh" method="post">
+
+    <span style="color:red">Note: the site where this utility is hosted is not configured for SSL and your password will not be encrypted.  <br>Please<a href="http://esrinortheast.maps.arcgis.com/home/item.html?id=e4af83b9bc61420b9827f5291500dd3c">download</a>the application to configure it within your security zone.</span>
+
+  
+    <p><label for="org">Organization (ie. http://esrinortheast.maps.arcgis.com):</label>
+      <input type="text" name="org" value="" />
+    </p>
+
+    <p><label for="userName">User Name:</label>
+      <input type="text" name="userName" />
+    </p>
+    <p><label for="password">Password:</label>
+      <input type="password" name="password" />
+    </p>
+
+     <p><label for="query">Query (optional):</label>
+      <input type="text" name="query" />
+    </p>
+
+      <div>
+       @Html.CheckBox("bIncludeThumbnails")
+       <label style="float:left" for="bIncludeThumbnails">Include Thumbnails?&nbsp;&nbsp;   </label>
+      </div>
+
+@*     <p><label for="bIncludeThumbnails">Include Thumbnails</label>
+      <input type="checkbox" name="bIncludeThumbnails" value="false"/>
+    </p>*@
+
+      <br />
+
+           @Html.CheckBox("bIncludeSize")
+
+       <label style="float:left" for="bIncludeSize">Include Size?   &nbsp;&nbsp;</label>
+     @* <input type="checkbox" name="bIncludeSize" value="false" />*@
+
+
+    <p><input type="submit" value="Refresh"  /></p>
+  </form>
+}
+
+    <div id="infoDiv" >
+
+
+      @if(IsPost ){
+
+        @Html.ActionLink("Download Results...", "Download" , "AGOLCat")
+        
+      <ul >
+
+   
+    @foreach (AGOLCat.Models.Result catalogItem in Model.AGOLCatalogItems)
+    {
+      <br />
+     
+        <li><a href="@catalogItem.itemURL"> #@catalogItem.myRowID: &nbsp; <i>@catalogItem.type </i></a> &nbsp; @catalogItem.modified <br />@if(catalogItem.myThumbnailURL!=null && Model.bIncludeThumbnails){ <img src="@catalogItem.myThumbnailURL" /> }<strong> @catalogItem.title &nbsp;&nbsp; (@catalogItem.owner) @catalogItem.size kb</strong> &nbsp;access: @catalogItem.access <br /><br />  @Html.Raw(@catalogItem.description)    </li>
+      <br />
+    
+    }
+        
+
+</ul>
+
+      
+      }
+
+    </div>
+
+  </section>
