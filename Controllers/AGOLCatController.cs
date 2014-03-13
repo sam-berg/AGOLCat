@@ -9,7 +9,7 @@ namespace AGOLCatalogApp.Controllers
 {
   public class AGOLCatController : Controller
   {
-    //
+    
     // GET: /AGOLCat/
 
     private AGOLCat.Models.AGOLCatalogModel myModel = new AGOLCat.Models.AGOLCatalogModel();
