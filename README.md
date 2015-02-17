@@ -6,6 +6,8 @@ The AGOLCat application will query the content of all users within an organizati
 
 For a version that runs via a Python script, please see https://github.com/sam-berg/ago-tools/blob/master/samples/AGOLCat.py.
 
+The application is powered by the ArcGIS REST API: http://resources.arcgis.com/en/help/arcgis-rest-api/#/The_ArcGIS_REST_API/02r300000054000000/
+
 The result can be downloaded as a CSV file for further processing.
 
 For example, an administrator of an organization can use this to generate a spreadsheet referencing all items in the organization, sorted by file size.
