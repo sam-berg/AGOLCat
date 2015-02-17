@@ -4,6 +4,8 @@ AGOLCat
 ArcGIS Online Catalog
 The AGOLCat application will query the content of all users within an organization and return a list of all items meeting the criteria which are accessible to the supplied credential.
 
+For a version that runs via a Python script, please see https://github.com/sam-berg/ago-tools/blob/master/samples/AGOLCat.py.
+
 The result can be downloaded as a CSV file for further processing.
 
 For example, an administrator of an organization can use this to generate a spreadsheet referencing all items in the organization, sorted by file size.
