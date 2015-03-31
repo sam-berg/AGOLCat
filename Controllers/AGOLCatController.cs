@@ -11,21 +11,87 @@ namespace AGOLCatalogApp.Controllers
   {
     
     // GET: /AGOLCat/
+    [HttpGet]
+    //public ActionResult Foo(string id)
+    public ActionResult Foo(string info)
+    {
+      string[] split = { "||||" };
+      string[]val = info.Split(split,StringSplitOptions.RemoveEmptyEntries);
+      string id = val[0];
+      string orgId = val[1];
+      var  person = "umm, hi " +id;
+      //ViewBag.userToken = id;
+
+      //
+      myModel.userToken = id;
+      myModel.orgID = orgId;
+      myModel.org = "http://" + val[2] + "." + val[3];
+      Session["userToken"] = id;
+      Session["userOrgId"] = orgId;
+      Session["userOrg"] = myModel.org;
+      //return RedirectToAction("AGOLCat", "AGOLCat");
+      return Json(person, JsonRequestBehavior.AllowGet);
+
+      
+
+    }
 
     private AGOLCat.Models.AGOLCatalogModel myModel = new AGOLCat.Models.AGOLCatalogModel();
 
     public ActionResult AGOLCat()
     {
+      if (Session["userToken"] != null)
+      { 
+        string id = Session["userToken"].ToString();
+        string orgId = Session["userOrgId"].ToString();
+        string org = Session["userOrg"].ToString();
+        myModel.userToken = id;
+        myModel.userAuthenticated = "";
+        myModel.orgID = orgId;
+        myModel.org = org;
+      }
+
+      
       return View(myModel);
     }
 
-    public ActionResult Refresh(string userName, string password, string org, string query, bool bIncludeThumbnails, bool bIncludeSize)
+    public ActionResult Login()
+    {
+
+      return View();
+      
+    }
+
+    public ActionResult Logout()
+    {
+      
+      Session["userToken"]=null;
+      Session["userOrgId"]=null;
+      Session["userOrg"]=null;
+
+      Session.Clear();
+      
+      myModel.userToken = null;
+      myModel.userAuthenticated = "disabled";
+      myModel.orgID = null;
+      myModel.org = null;
+
+      return View();
+
+    }
+
+    //public ActionResult Refresh(string userName, string password, string org, string query, bool bIncludeThumbnails, bool bIncludeSize)
+    public ActionResult Refresh(string query, bool bIncludeThumbnails, bool bIncludeSize)
     {
 
       AGOLCat.Models.AGOLCatalogModel pModel = myModel;// new AGOLCat.Models.AGOLCatalogModel();
-      pModel.userName = userName;
-      pModel.password = password;
-      pModel.org = org;
+      pModel.userToken = Session["userToken"].ToString();
+      pModel.userOrgId = Session["userOrgId"].ToString();
+      pModel.org = Session["userOrg"].ToString();
+      //pModel.userName = userName;
+      //pModel.password = password;
+      //pModel.org = org;
+
       pModel.bIncludeThumbnails = bIncludeThumbnails;
       pModel.bIncludeSize = bIncludeSize;
       pModel.query = query;

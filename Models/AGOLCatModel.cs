@@ -18,13 +18,16 @@ namespace AGOLCat.Models
     public string query = null;
     public bool bIncludeThumbnails = true;
     public bool bIncludeSize = true;
+    public string userToken = null;
+    public string userAuthenticated = "disabled";
+    public string userOrgId = null;
 
     public int resultCount = 0;
 
     string portalURL = "https://www.arcgis.com";
     string searchURL = "http://esrinortheast.maps.arcgis.com/sharing/rest";
     string viewURL = "http://esrinortheast.maps.arcgis.com/home/item.html?id=";
-    string orgID = "";
+    public string orgID = "";
   
     string sUserName = "";
     string sPWD = "";
@@ -40,15 +43,25 @@ namespace AGOLCat.Models
       get
       {
 
-        if (this.userName != null && this.userName!="") this.sUserName = this.userName;
-        if (this.password != null && this.password!="") this.sPWD = this.password;
+        if (0 == 1)
+        {
+          if (this.userName != null && this.userName != "") this.sUserName = this.userName;
+          if (this.password != null && this.password != "") this.sPWD = this.password;
 
-        if (this.org == null || this.org == "") return Results;
+          if (this.org == null || this.org == "") return Results;
 
-        this.token = generateToken();
+          this.token = generateToken();
 
-        //get orgid
-        this.orgID = getOrgID();
+
+          //get orgid
+          this.orgID = getOrgID();
+        }
+        else
+        {
+
+          this.token = this.userToken;// Session["userToken"].toString();
+          this.orgID = this.userOrgId;// Session["userOrgId"].toString();
+        }
 
         if (this.orgID == null || this.orgID == "") return Results;
 

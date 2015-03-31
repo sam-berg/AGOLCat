@@ -16,8 +16,9 @@ namespace AGOLCatalogApp
       routes.MapRoute(
         name: "Default",
         url: "{controller}/{action}/{id}",
-        defaults: new { controller = "AGOLCat", action = "AGOLCat", id = UrlParameter.Optional }
+        defaults: new { controller = "AGOLCat", action = "Login", id = UrlParameter.Optional }
       );
+
 
     }
   }
